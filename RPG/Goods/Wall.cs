@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RPG.GameBoard;
 
-namespace RPG.Cell
+namespace RPG.Goods
 {
-    public class Cell
+    public class Wall : Good
     {
     }
 }

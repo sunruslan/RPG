@@ -59,19 +59,22 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\InverseBooleanConverter.cs" />
-    <Compile Include="Cell\Cell.cs" />
     <Compile Include="Factories\ArcherFactory.cs" />
     <Compile Include="Factories\FireFactory.cs" />
     <Compile Include="Factories\IceFactory.cs" />
     <Compile Include="Factories\Factory.cs" />
+    <Compile Include="GameBoard\GameBoard.cs" />
     <Compile Include="GameBoard\GameBoardBuilder.cs" />
     <Compile Include="GameBoard\GameBoardDirector.cs" />
     <Compile Include="GameBoard\IGameBoardBuilder.cs" />
+    <Compile Include="GameBoard\Cell.cs" />
+    <Compile Include="GameBoard\Item.cs" />
     <Compile Include="Goods\Coin.cs" />
     <Compile Include="Goods\Fire.cs" />
     <Compile Include="Goods\Good.cs" />
     <Compile Include="Goods\Ice.cs" />
     <Compile Include="Goods\Life.cs" />
+    <Compile Include="Goods\Wall.cs" />
     <Compile Include="Goods\Weapon.cs" />
     <Compile Include="Units\Archer.cs" />
     <Compile Include="Units\FireMan.cs" />

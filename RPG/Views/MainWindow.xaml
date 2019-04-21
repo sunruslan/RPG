@@ -8,31 +8,49 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         d:DataContext="{d:DesignInstance viewModel:MainWindowViewModel}" 
         xmlns:local="clr-namespace:RPG.Views"
+        xmlns:gameBoard="clr-namespace:RPG.GameBoard"
         xmlns:converter="clr-namespace:RPG.Converters"
         prism:ViewModelLocator.AutoWireViewModel="True"
-        Title="RPG" Height="350" Width="525">
+        Title="RPG" Height="350" Width="525"
+        WindowStyle="None" ResizeMode="NoResize"  
+        WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <Window.Resources>
         <converter:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+        <DataTemplate x:Key="DataTemplate_Level2" DataType="{x:Type gameBoard:Cell}">
+            <Button Content="{Binding Content.Stripe}"/>
+            <!--<Rectangle Fill="Azure" Width="15" Height="15" Stroke="Black"/>-->
+        </DataTemplate>
+
+        <DataTemplate x:Key="DataTemplate_Level1">
+            <ItemsControl ItemsSource="{Binding}" ItemTemplate="{DynamicResource DataTemplate_Level2}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </DataTemplate>
     </Window.Resources>
     <DockPanel>
         <UniformGrid Columns="3" Rows="1" DockPanel.Dock="Top" Height="Auto" IsEnabled="{Binding IsStarted, Converter={StaticResource InverseBooleanConverter}}">
             <StackPanel Margin="5">
                 <TextBlock Text="Выберите роль:" FontWeight="Bold" Padding="5"/>
-                <RadioButton Content="Лучник" Padding="3"/>
-                <RadioButton Content="Человек-огня" Padding="3"/>
-                <RadioButton Content="Человек-льда" Padding="3"/>
+                <RadioButton Content="Лучник" Padding="3" Command="{Binding SetPlayerCommand}" CommandParameter="Лучник"/>
+                <RadioButton Content="Человек-огня" Padding="3" Command="{Binding SetPlayerCommand}" CommandParameter="Человек-огня"/>
+                <RadioButton Content="Человек-льда" Padding="3" Command="{Binding SetPlayerCommand}" CommandParameter="Человек-льда"/>
             </StackPanel>
             <StackPanel Margin="5">
                 <TextBlock Text="Выберите сложность:" FontWeight="Bold" Padding="5"/>
-                <RadioButton Content="Легко" Padding="3"/>
-                <RadioButton Content="Нормально" Padding="3"/>
-                <RadioButton Content="Сложно" Padding="3"/>
+                <RadioButton Content="Легко" Padding="3" Command="{Binding SetLevelCommand}" CommandParameter="1"/>
+                <RadioButton Content="Нормально" Padding="3" Command="{Binding SetLevelCommand}" CommandParameter="2"/>
+                <RadioButton Content="Сложно" Padding="3" Command="{Binding SetLevelCommand}" CommandParameter="3"/>
             </StackPanel>
             <Button Content="Играть!" Background="YellowGreen" FontSize="40" Command="{Binding StartCommand}"/>
         </UniformGrid>
         <StackPanel DockPanel.Dock="Left" Width="Auto">
             <TextBlock FontSize="50" Text="{Binding RoundTime}"/>
-
         </StackPanel>
+        <TextBlock Text="{Binding GameBoard.Length}"/>
+        <!--<ItemsControl ItemsSource="{Binding GameBoard.GameBoardCells}" ItemTemplate="{StaticResource DataTemplate_Level1}"/>-->
     </DockPanel>
 </Window>

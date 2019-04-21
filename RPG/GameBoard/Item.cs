@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using RPG.GameBoard;
 
-namespace RPG.Goods
+namespace RPG.GameBoard
 {
-    public class Good : Item
+    public interface Item
     {
-        public int Spirit { get; set; }
+        int Spirit { get; set; }
     }
 }

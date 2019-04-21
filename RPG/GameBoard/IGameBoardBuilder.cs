@@ -10,12 +10,12 @@ namespace RPG.GameBoard
     {
         void SetShape(int height, int width);
 
-        void CreateWalls(params Cell.Cell[] walls);
+        void CreateWalls(params Cell[] walls);
 
-        void SetStartPositions(params Cell.Cell[] positions);
+        void SetStartPositions(params Cell[] positions);
 
         void Reset();
 
-        Cell.Cell[,] GetGameBoard();
+        GameBoard GetGameBoard();
     }
 }

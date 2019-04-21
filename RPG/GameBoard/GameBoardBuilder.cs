@@ -16,37 +16,41 @@ namespace RPG.GameBoard
 
         public void SetShape(int height, int width)
         {
-            _gameBoard = new Cell.Cell[height, width];
+            _gameBoard.GameBoardCells = new Cell[height][];
+            for (int i = 0; i < height; i++)
+            {
+                _gameBoard.GameBoardCells[i] = new Cell[width];
+            }
         }
-
-        public void CreateWalls(params Cell.Cell[] walls)
+        
+        public void CreateWalls(params Cell[] walls)
         {
             foreach (var wall in walls)
             {
-                
+                _gameBoard.GameBoardCells[wall.Y][wall.X] = wall;
             }
         }
 
-        public void SetStartPositions(params Cell.Cell[] positions)
+        public void SetStartPositions(params Cell[] positions)
         {
             foreach (var position in positions)
             {
-
+                _gameBoard.GameBoardCells[position.Y][position.X] = position;
             }
         }
 
         public void Reset()
         {
-            _gameBoard = null;
+            _gameBoard = new GameBoard();
         }
 
-        public Cell.Cell[,] GetGameBoard()
+        public GameBoard GetGameBoard()
         {
             var result = _gameBoard;
             Reset();
             return result;
         }
 
-        private Cell.Cell[,] _gameBoard;
+        private GameBoard _gameBoard;
     }
 }
