@@ -10,6 +10,8 @@
         xmlns:local="clr-namespace:RPG.Views"
         xmlns:gameBoard="clr-namespace:RPG.GameBoard"
         xmlns:converter="clr-namespace:RPG.Converters"
+        xmlns:goods="clr-namespace:RPG.Goods"
+        xmlns:units="clr-namespace:RPG.Units"
         prism:ViewModelLocator.AutoWireViewModel="True"
         Title="RPG" Height="350" Width="525"
         WindowStyle="None" ResizeMode="NoResize"  
@@ -17,10 +19,50 @@
     <Window.Resources>
         <converter:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
         <DataTemplate x:Key="DataTemplate_Level2" DataType="{x:Type gameBoard:Cell}">
-            <Button Content="{Binding Content.Stripe}"/>
-            <!--<Rectangle Fill="Azure" Width="15" Height="15" Stroke="Black"/>-->
+            <Grid>
+                <ContentControl Content="{Binding Good}">
+                    <ContentControl.Resources>
+                        <DataTemplate DataType="{x:Type goods:Wall}">
+                            <Image Source="../Resources/Wall.png"/>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type goods:Ground}">
+                            <Image Source="../Resources/Ground.png"/>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type goods:Life}">
+                            <Image Source="../Resources/Life.png"/>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type goods:Coin}">
+                            <Image Source="../Resources/Coin.png"/>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type goods:Box}">
+                            <Image Source="../Resources/Box.png"/>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type goods:Fire}">
+                            <Image Source="../Resources/Fire.png"/>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type goods:Ice}">
+                            <Image Source="../Resources/Ice.png"/>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type goods:Arrow}">
+                            <Image Source="../Resources/Arrow.png"/>
+                        </DataTemplate>
+                    </ContentControl.Resources>
+                </ContentControl>
+                <ContentControl Content="{Binding Unit}">
+                    <ContentControl.Resources>
+                        <DataTemplate DataType="{x:Type units:Archer}">
+                            <Image Source="../Resources/Archer.png"/>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type units:FireMan}">
+                            <Image Source="../Resources/FireMan.png"/>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type units:IceMan}">
+                            <Image Source="../Resources/IceMan.png"/>
+                        </DataTemplate>
+                    </ContentControl.Resources>
+                </ContentControl>
+            </Grid>
         </DataTemplate>
-
         <DataTemplate x:Key="DataTemplate_Level1">
             <ItemsControl ItemsSource="{Binding}" ItemTemplate="{DynamicResource DataTemplate_Level2}">
                 <ItemsControl.ItemsPanel>
@@ -50,7 +92,6 @@
         <StackPanel DockPanel.Dock="Left" Width="Auto">
             <TextBlock FontSize="50" Text="{Binding RoundTime}"/>
         </StackPanel>
-        <TextBlock Text="{Binding GameBoard.Length}"/>
-        <!--<ItemsControl ItemsSource="{Binding GameBoard.GameBoardCells}" ItemTemplate="{StaticResource DataTemplate_Level1}"/>-->
+        <ItemsControl Margin="20" ItemsSource="{Binding GameBoard.GameBoardCells}" ItemTemplate="{StaticResource DataTemplate_Level1}"/>
     </DockPanel>
 </Window>

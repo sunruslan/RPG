@@ -14,6 +14,8 @@ namespace RPG.GameBoard
 
         public int Y { get; set; }
 
-        public Item Content { get; set; }
+        public Unit Unit { get; set; }
+
+        public Good Good { get; set; } = new Ground();
     }
 }

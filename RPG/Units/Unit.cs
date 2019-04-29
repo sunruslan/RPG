@@ -8,10 +8,8 @@ using RPG.Units.States;
 
 namespace RPG.Units
 {
-    public abstract class Unit : Item
+    public abstract class Unit
     {
         public State State { get; set; }
-
-        public int Spirit { get; set; }
     }
 }

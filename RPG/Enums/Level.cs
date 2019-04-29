@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RPG.Units
+namespace RPG.Enums
 {
-    public class IceMan : Unit
+    public enum Level : int
     {
+        UNKHOWN = -1,
+        EASY,
+        MEDIUM,
+        HARD
     }
 }

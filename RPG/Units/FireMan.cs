@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RPG.Units
 {
-    class FireMan
+    public class FireMan : Unit
     {
     }
 }

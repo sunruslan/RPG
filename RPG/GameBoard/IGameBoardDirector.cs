@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RPG.Units
+namespace RPG.GameBoard
 {
-    public class IceMan : Unit
+    public interface IGameBoardDirector
     {
+        void Create();
     }
 }

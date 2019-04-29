@@ -7,8 +7,7 @@ using RPG.GameBoard;
 
 namespace RPG.Goods
 {
-    public class Good : Item
+    public class Good
     {
-        public int Spirit { get; set; }
     }
 }

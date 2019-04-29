@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RPG.GameBoard
+namespace RPG.Goods
 {
-    public interface Item
+    public class Arrow : Weapon
     {
-        int Spirit { get; set; }
     }
 }

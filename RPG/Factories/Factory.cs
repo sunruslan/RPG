@@ -14,11 +14,6 @@ namespace RPG.Factories
 
         public abstract Unit CreateUnit();
 
-        public Life CreateLife()
-        {
-            return new Life();
-        }
-
         public Coin CreateCoin()
         {
             return new Coin();

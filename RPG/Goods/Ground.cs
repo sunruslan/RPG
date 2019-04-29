@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RPG.Units
+namespace RPG.Goods
 {
-    public class IceMan : Unit
+    public class Ground : Good
     {
     }
 }

@@ -20,6 +20,10 @@ namespace RPG.GameBoard
             for (int i = 0; i < height; i++)
             {
                 _gameBoard.GameBoardCells[i] = new Cell[width];
+                for (int j = 0; j < width; j++)
+                {
+                    _gameBoard.GameBoardCells[i][j] = new Cell();
+                }
             }
         }
         

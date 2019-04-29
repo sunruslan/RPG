@@ -25,8 +25,6 @@ namespace RPG.ViewModels
 
         public ICommand SetLevelCommand { get; }
         
-        
-
         public bool IsStarted
         {
             get { return _isStarted; }
@@ -43,15 +41,20 @@ namespace RPG.ViewModels
             set { SetProperty(ref _roundTime, value); }
         }
 
-        public Cell[][] GameBoard { get; set; }
-        
+        public GameBoard.GameBoard GameBoard
+        {
+            get { return _gameBoard; }
+            set { SetProperty(ref _gameBoard, value); }
+        }
+
         private void Start()
         {
             if (Level != 0 && String.IsNullOrEmpty(PlayerName)) return;
+            
             var builder = new GameBoardBuilder();
-            var director = new GameBoardDirector(builder);
-            director.Create(1);
-            GameBoard = builder.GetGameBoard().GameBoardCells;
+            var director = new LightGameBoardDirector(builder);
+            director.Create();
+            GameBoard = builder.GetGameBoard();
             IsStarted = true;
         }
 
@@ -67,5 +70,6 @@ namespace RPG.ViewModels
         
         private bool _isStarted = false;
         private TimeSpan _roundTime = TimeSpan.Zero;
+        private GameBoard.GameBoard _gameBoard;
     }
 }
