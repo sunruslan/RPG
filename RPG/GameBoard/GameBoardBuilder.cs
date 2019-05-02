@@ -4,6 +4,7 @@ using System.Linq;
 using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
+using RPG.Goods;
 
 namespace RPG.GameBoard
 {
@@ -16,31 +17,36 @@ namespace RPG.GameBoard
 
         public void SetShape(int height, int width)
         {
-            _gameBoard.GameBoardCells = new Cell[height][];
+            _gameBoard.GameBoardItems = new IItem[height][];
             for (int i = 0; i < height; i++)
             {
-                _gameBoard.GameBoardCells[i] = new Cell[width];
+                _gameBoard.GameBoardItems[i] = new IItem[width];
                 for (int j = 0; j < width; j++)
                 {
-                    _gameBoard.GameBoardCells[i][j] = new Cell();
+                    _gameBoard.GameBoardItems[i][j] = new Ground(){X = j, Y = i};
                 }
             }
         }
         
-        public void CreateWalls(params Cell[] walls)
+        public void CreateWalls(ICollection<IItem> walls)
         {
             foreach (var wall in walls)
             {
-                _gameBoard.GameBoardCells[wall.Y][wall.X] = wall;
+                _gameBoard.GameBoardItems[wall.Y][wall.X] = wall;
             }
         }
 
-        public void SetStartPositions(params Cell[] positions)
+        public void SetUnits(ICollection<IItem> units)
         {
-            foreach (var position in positions)
+            foreach (var position in units)
             {
-                _gameBoard.GameBoardCells[position.Y][position.X] = position;
+                _gameBoard.GameBoardItems[position.Y][position.X] = position;
             }
+        }
+
+        public void SetUnit(IItem unit)
+        {
+            _gameBoard.GameBoardItems[unit.Y][unit.X] = unit;
         }
 
         public void Reset()

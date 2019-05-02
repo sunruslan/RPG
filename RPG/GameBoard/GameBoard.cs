@@ -10,14 +10,14 @@ namespace RPG.GameBoard
     {
         public int Height
         {
-            get { return GameBoardCells.Length; }
+            get { return GameBoardItems.Length; }
         }
 
         public int Width
         {
-            get { return GameBoardCells[0].Length; }
+            get { return GameBoardItems[0].Length; }
         }
 
-        public Cell[][] GameBoardCells { get; set; }
+        public IItem[][] GameBoardItems { get; set; }
     }
 }

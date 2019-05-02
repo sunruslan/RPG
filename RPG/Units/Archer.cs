@@ -8,5 +8,9 @@ namespace RPG.Units
 {
     public class Archer : Unit
     {
+        public override void Attack()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -4,6 +4,7 @@ using System.Windows.Forms.VisualStyles;
 using System.Windows.Input;
 using Prism.Commands;
 using Prism.Mvvm;
+using RPG.Enums;
 using RPG.GameBoard;
 using RPG.Units;
 
@@ -50,11 +51,9 @@ namespace RPG.ViewModels
         private void Start()
         {
             if (Level != 0 && String.IsNullOrEmpty(PlayerName)) return;
-            
-            var builder = new GameBoardBuilder();
-            var director = new LightGameBoardDirector(builder);
-            director.Create();
-            GameBoard = builder.GetGameBoard();
+            var game = new Game.Game(Enums.Level.EASY, UnitType.ARCHER);
+            game.Start();
+            GameBoard = game.GameBoard;
             IsStarted = true;
         }
 

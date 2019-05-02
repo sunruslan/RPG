@@ -10,9 +10,11 @@ namespace RPG.GameBoard
     {
         void SetShape(int height, int width);
 
-        void CreateWalls(params Cell[] walls);
+        void CreateWalls(ICollection<IItem> walls);
 
-        void SetStartPositions(params Cell[] positions);
+        void SetUnits(ICollection<IItem> units);
+
+        void SetUnit(IItem unit);
 
         void Reset();
 

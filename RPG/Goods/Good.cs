@@ -7,7 +7,10 @@ using RPG.GameBoard;
 
 namespace RPG.Goods
 {
-    public class Good
+    public abstract class Good : IItem
     {
+        public int X { get; set; }
+
+        public int Y { get; set; }
     }
 }

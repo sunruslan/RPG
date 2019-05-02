@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RPG.Goods;
+using RPG.Units;
 
 namespace RPG.GameBoard
 {
@@ -12,55 +13,35 @@ namespace RPG.GameBoard
         public LightGameBoardDirector(IGameBoardBuilder builder)
         {
             _builder = builder;
+            _redPositions = new List<Tuple<int, int>>(){new Tuple<int, int>(2, 9), new Tuple<int, int>(8, 10), new Tuple<int, int>(10, 7)};
+            _bluePositions = new List<Tuple<int, int>>(){new Tuple<int, int>(1, 2), new Tuple<int, int>(5, 2), new Tuple<int, int>(9, 1)};
         }
 
-        public void Create()
+        public void Create(ICollection<IItem> reds, ICollection<IItem> blues)
         {
-            _builder.SetShape(20, 20);
-            var walls = new Cell[]
+            _builder.SetShape(12, 12);
+            int i = 0;
+            foreach (var red in reds)
             {
-                new Cell{Y = 0, X = 18, Good = new Wall(), Unit = null},
-                new Cell{Y = 1, X = 4, Good = new Wall(), Unit = null},
-                new Cell{Y = 1, X = 18, Good = new Wall(), Unit = null},
-                new Cell{Y = 2, X = 3, Good = new Wall(), Unit = null},
-                new Cell{Y = 2, X = 4, Good = new Wall(), Unit = null},
-                new Cell{Y = 2, X = 5, Good = new Wall(), Unit = null},
-                new Cell{Y = 3, X = 5, Good = new Wall(), Unit = null},
-                new Cell{Y = 4, X = 5, Good = new Wall(), Unit = null},
-                new Cell{Y = 5, X = 10, Good = new Wall(), Unit = null},
-                new Cell{Y = 5, X = 11, Good = new Wall(), Unit = null},
-                new Cell{Y = 5, X = 12, Good = new Wall(), Unit = null},
-                new Cell{Y = 5, X = 13, Good = new Wall(), Unit = null},
-                new Cell{Y = 9, X = 15, Good = new Wall(), Unit = null},
-                new Cell{Y = 10, X = 12, Good = new Wall(), Unit = null},
-                new Cell{Y = 10, X = 13, Good = new Wall(), Unit = null},
-                new Cell{Y = 10, X = 15, Good = new Wall(), Unit = null},
-                new Cell{Y = 11, X = 13, Good = new Wall(), Unit = null},
-                new Cell{Y = 11, X = 14, Good = new Wall(), Unit = null},
-                new Cell{Y = 11, X = 15, Good = new Wall(), Unit = null},
-                new Cell{Y = 11, X = 16, Good = new Wall(), Unit = null},
-                new Cell{Y = 11, X = 17, Good = new Wall(), Unit = null},
-                new Cell{Y = 12, X = 15, Good = new Wall(), Unit = null},
-                new Cell{Y = 13, X = 4, Good = new Wall(), Unit = null},
-                new Cell{Y = 14, X = 4, Good = new Wall(), Unit = null},
-                new Cell{Y = 14, X = 3, Good = new Wall(), Unit = null},
-                new Cell{Y = 14, X = 4, Good = new Wall(), Unit = null},
-                new Cell{Y = 14, X = 5, Good = new Wall(), Unit = null},
-                new Cell{Y = 14, X = 6, Good = new Wall(), Unit = null},
-                new Cell{Y = 15, X = 3, Good = new Wall(), Unit = null},
-                new Cell{Y = 16, X = 3, Good = new Wall(), Unit = null},
-                new Cell{Y = 15, X = 14, Good = new Wall(), Unit = null},
-                new Cell{Y = 16, X = 14, Good = new Wall(), Unit = null},
-                new Cell{Y = 17, X = 13, Good = new Wall(), Unit = null},
-                new Cell{Y = 17, X = 14, Good = new Wall(), Unit = null},
-                new Cell{Y = 18, X = 13, Good = new Wall(), Unit = null},
-                new Cell{Y = 18, X = 14, Good = new Wall(), Unit = null},
-                new Cell{Y = 19, X = 13, Good = new Wall(), Unit = null},
-                new Cell{Y = 19, X = 14, Good = new Wall(), Unit = null},
-            };
-            _builder.CreateWalls(walls);
+                red.X = _redPositions[i].Item1;
+                red.Y = _redPositions[i].Item2;
+                ++i;
+            }
+
+            i = 0;
+            foreach (var blue in blues)
+            {
+                blue.X = _bluePositions[i].Item1;
+                blue.Y = _bluePositions[i].Item2;
+                ++i;
+            }
+            _builder.SetUnits(reds);
+            _builder.SetUnits(blues);
         }
 
+
+        private IList<Tuple<int, int>> _redPositions;
+        private IList<Tuple<int, int>> _bluePositions;
         private IGameBoardBuilder _builder;
     }
 }

@@ -8,5 +8,9 @@ namespace RPG.Units
 {
     public class FireMan : Unit
     {
+        public override void Attack()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

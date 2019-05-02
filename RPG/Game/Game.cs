@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using RPG.Enums;
 using RPG.GameBoard;
+using RPG.Units;
 
 namespace RPG.Game
 {
@@ -15,6 +16,8 @@ namespace RPG.Game
         {
             _level = level;
             _unit = unit;
+            _redArmy = new RedArmy();
+            _blueArmy = new BlueArmy();
         }
 
         public GameBoard.GameBoard GameBoard { get; set; }
@@ -23,11 +26,16 @@ namespace RPG.Game
         {
             var builder = new GameBoardBuilder();
             var director = new LightGameBoardDirector(builder);
-            director.Create();
+            _redArmy.Initialize(1, 1, 1);
+            _blueArmy.Initialize(1, 1, 1);
+            director.Create(_redArmy.Units, _blueArmy.Units);
             GameBoard = builder.GetGameBoard();
         }
 
 
+
+        private RedArmy _redArmy;
+        private BlueArmy _blueArmy;
         private Level _level;
         private UnitType _unit;
     }

@@ -10,9 +10,9 @@ namespace RPG.Factories
 {
     public abstract class Factory
     {
-        public abstract Weapon CreateWeapon();
-
         public abstract Unit CreateUnit();
+
+        public abstract Weapon CreateWeapon();
 
         public Coin CreateCoin()
         {
