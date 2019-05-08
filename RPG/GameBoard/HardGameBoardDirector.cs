@@ -13,13 +13,9 @@ namespace RPG.GameBoard
         public HardGameBoardDirector(IGameBoardBuilder builder)
         {
             _builder = builder;
-            _redPositions = new List<Tuple<int, int>>() { new Tuple<int, int>(1, 9), new Tuple<int, int>(2, 1), new Tuple<int, int>(4, 8),
-                                                          new Tuple<int, int>(9, 9), new Tuple<int, int>(9, 14), new Tuple<int, int>(7, 1),
-                                                          new Tuple<int, int>(17, 0), new Tuple<int, int>(14, 7), new Tuple<int, int>(12, 4)};
+            _redPositions = new List<Tuple<int, int>>() { new Tuple<int, int>(1, 9), new Tuple<int, int>(2, 1), new Tuple<int, int>(4, 8)};
 
-            _bluePositions = new List<Tuple<int, int>>() { new Tuple<int, int>(0, 4), new Tuple<int, int>(0, 12), new Tuple<int, int>(3, 6),
-                                                           new Tuple<int, int>(5, 12), new Tuple<int, int>(12, 0), new Tuple<int, int>(12, 16),
-                                                           new Tuple<int, int>(13, 10), new Tuple<int, int>(14, 1), new Tuple<int, int>(17, 17)};
+            _bluePositions = new List<Tuple<int, int>>() { new Tuple<int, int>(0, 4), new Tuple<int, int>(0, 12), new Tuple<int, int>(3, 6)};
             _walls = new List<Wall>() { new Wall { X = 1, Y = 2 }, new Wall { X = 2, Y = 2 }, new Wall { X = 3, Y = 2 },
                                         new Wall { X = 3, Y = 1 }, new Wall { X = 7, Y = 3 }, new Wall { X = 8, Y = 5 },
                                         new Wall { X = 10, Y = 3 }, new Wall { X = 11, Y = 3 }, new Wall { X = 10, Y = 14 },

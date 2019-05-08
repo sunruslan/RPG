@@ -13,11 +13,9 @@ namespace RPG.GameBoard
         public MediumGameBoardDirector(IGameBoardBuilder builder)
         {
             _builder = builder;
-            _redPositions = new List<Tuple<int, int>>() { new Tuple<int, int>(0, 5), new Tuple<int, int>(2, 13), new Tuple<int, int>(4, 7),
-                                                          new Tuple<int, int>(10, 1), new Tuple<int, int>(10, 14), new Tuple<int, int>(13, 5)};
+            _redPositions = new List<Tuple<int, int>>() { new Tuple<int, int>(0, 5), new Tuple<int, int>(2, 13), new Tuple<int, int>(4, 7)};
 
-            _bluePositions = new List<Tuple<int, int>>() { new Tuple<int, int>(1, 1), new Tuple<int, int>(4, 11), new Tuple<int, int>(6, 4),
-                                                           new Tuple<int, int>(8, 2), new Tuple<int, int>(12, 9), new Tuple<int, int>(13, 13)};
+            _bluePositions = new List<Tuple<int, int>>() { new Tuple<int, int>(1, 1), new Tuple<int, int>(4, 11), new Tuple<int, int>(6, 4)};
             _walls = new List<Wall>() { new Wall { X = 3, Y = 3 }, new Wall { X = 3, Y = 4 }, new Wall { X = 3, Y = 5 },
                                         new Wall { X = 10, Y = 4 }, new Wall { X = 10, Y = 5 }, new Wall { X = 10, Y = 6 },
                                         new Wall { X = 10, Y = 7 }, new Wall { X = 9, Y = 7 }, new Wall { X = 8, Y = 7 },
