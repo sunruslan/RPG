@@ -25,9 +25,27 @@ namespace RPG.Game
         public void Start()
         {
             var builder = new GameBoardBuilder();
-            var director = new LightGameBoardDirector(builder);
-            _redArmy.Initialize(1, 1, 1);
-            _blueArmy.Initialize(1, 1, 1);
+            IGameBoardDirector director;
+            switch (_level)
+            {
+                case Level.EASY:
+                    director = new LightGameBoardDirector(builder);
+                    _redArmy.Initialize(1, 1, 1);
+                    _blueArmy.Initialize(1, 1, 1);
+                    break;
+                case Level.MEDIUM:
+                    director = new MediumGameBoardDirector(builder);
+                    _redArmy.Initialize(2, 2, 2);
+                    _blueArmy.Initialize(2, 2, 2);
+                    break;
+                case Level.HARD:
+                    director = new HardGameBoardDirector(builder);
+                    _redArmy.Initialize(3, 3, 3);
+                    _blueArmy.Initialize(3, 3, 3);
+                    break;
+                default:
+                    throw new NotSupportedException();
+            }
             director.Create(_redArmy.Units, _blueArmy.Units);
             GameBoard = builder.GetGameBoard();
         }

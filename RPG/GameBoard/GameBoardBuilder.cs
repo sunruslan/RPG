@@ -28,7 +28,7 @@ namespace RPG.GameBoard
             }
         }
         
-        public void CreateWalls(ICollection<IItem> walls)
+        public void CreateWalls(ICollection<Wall> walls)
         {
             foreach (var wall in walls)
             {

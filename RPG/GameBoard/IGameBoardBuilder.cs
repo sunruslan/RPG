@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RPG.Goods;
 
 namespace RPG.GameBoard
 {
@@ -10,7 +11,7 @@ namespace RPG.GameBoard
     {
         void SetShape(int height, int width);
 
-        void CreateWalls(ICollection<IItem> walls);
+        void CreateWalls(ICollection<Wall> walls);
 
         void SetUnits(ICollection<IItem> units);
 

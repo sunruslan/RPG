@@ -32,9 +32,9 @@ namespace RPG.ViewModels
             set { SetProperty(ref _isStarted, value); }
         }
 
-        public int Level { get; private set; }
+        public Level Level { get; private set; } = Level.UNKHOWN;
 
-        public string PlayerName { get; set; }
+        public UnitType Player { get; set; } = UnitType.UNKNOWN;
 
         public TimeSpan RoundTime
         {
@@ -50,8 +50,8 @@ namespace RPG.ViewModels
 
         private void Start()
         {
-            if (Level != 0 && String.IsNullOrEmpty(PlayerName)) return;
-            var game = new Game.Game(Enums.Level.EASY, UnitType.ARCHER);
+            if (Level == Level.UNKHOWN || Player == UnitType.UNKNOWN) return;
+            var game = new Game.Game(Level, Player);
             game.Start();
             GameBoard = game.GameBoard;
             IsStarted = true;
@@ -59,12 +59,12 @@ namespace RPG.ViewModels
 
         private void SetLevel(string level)
         {
-            Level = level == null ? 0 : Int32.Parse(level);
+            Level = (Level)int.Parse(level);
         }
 
-        private void SetPlayer(string name)
+        private void SetPlayer(string type)
         {
-            PlayerName = name;
+            Player = (UnitType) int.Parse(type);
         }
         
         private bool _isStarted = false;

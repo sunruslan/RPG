@@ -12,6 +12,7 @@
         xmlns:converter="clr-namespace:RPG.Converters"
         xmlns:goods="clr-namespace:RPG.Goods"
         xmlns:units="clr-namespace:RPG.Units"
+        xmlns:enums="clr-namespace:RPG.Enums"
         prism:ViewModelLocator.AutoWireViewModel="True"
         Title="RPG" Height="350" Width="525"
         WindowStyle="None" ResizeMode="NoResize"  
@@ -51,6 +52,9 @@
                     <DataTemplate DataType="{x:Type units:IceMan}">
                         <Image Source="../Resources/IceMan.png"/>
                     </DataTemplate>
+                    <DataTemplate DataType="{x:Type units:FireMan}">
+                        <Image Source="../Resources/FireMan.png"/>
+                    </DataTemplate>
                 </ContentControl.Resources>
             </ContentControl>
         </DataTemplate>
@@ -68,15 +72,15 @@
         <UniformGrid Columns="3" Rows="1" DockPanel.Dock="Top" Height="Auto" IsEnabled="{Binding IsStarted, Converter={StaticResource InverseBooleanConverter}}">
             <StackPanel Margin="5">
                 <TextBlock Text="Выберите роль:" FontWeight="Bold" Padding="5"/>
-                <RadioButton Content="Лучник" Padding="3" Command="{Binding SetPlayerCommand}" CommandParameter="Лучник"/>
-                <RadioButton Content="Человек-огня" Padding="3" Command="{Binding SetPlayerCommand}" CommandParameter="Человек-огня"/>
-                <RadioButton Content="Человек-льда" Padding="3" Command="{Binding SetPlayerCommand}" CommandParameter="Человек-льда"/>
+                <RadioButton Content="Лучник" Padding="3" Command="{Binding SetPlayerCommand}" CommandParameter="0"/>
+                <RadioButton Content="Человек-огня" Padding="3" Command="{Binding SetPlayerCommand}" CommandParameter="1"/>
+                <RadioButton Content="Человек-льда" Padding="3" Command="{Binding SetPlayerCommand}" CommandParameter="2"/>
             </StackPanel>
             <StackPanel Margin="5">
                 <TextBlock Text="Выберите сложность:" FontWeight="Bold" Padding="5"/>
-                <RadioButton Content="Легко" Padding="3" Command="{Binding SetLevelCommand}" CommandParameter="1"/>
-                <RadioButton Content="Нормально" Padding="3" Command="{Binding SetLevelCommand}" CommandParameter="2"/>
-                <RadioButton Content="Сложно" Padding="3" Command="{Binding SetLevelCommand}" CommandParameter="3"/>
+                <RadioButton Content="Легко" Padding="3" Command="{Binding SetLevelCommand}" CommandParameter="0"/>
+                <RadioButton Content="Нормально" Padding="3" Command="{Binding SetLevelCommand}" CommandParameter="1"/>
+                <RadioButton Content="Сложно" Padding="3" Command="{Binding SetLevelCommand}" CommandParameter="2"/>
             </StackPanel>
             <Button Content="Играть!" Background="YellowGreen" FontSize="40" Command="{Binding StartCommand}"/>
         </UniformGrid>
