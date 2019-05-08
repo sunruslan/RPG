@@ -14,7 +14,6 @@ namespace RPG.Game
     {
         public Game(Level level, UnitType unit)
         {
-            //TODo: крякнуть
             _level = level;
             _unit = unit;
             _redArmy = new RedArmy();
