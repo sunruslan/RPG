@@ -16,26 +16,42 @@ namespace RPG.Units
 
         public IArmy Army { get; set; }
 
-        public int Health
-        {
-            get; set;
-        }
+        public int Health { get; set; }
 
         public int Weapons { get; set; }
+
+        public int Hit { get; set; }
 
         public bool IsAlive
         {
             get { return Health > 0; }
         }
 
+        public void PickUp(IItem temp)
+        {
+            if (temp is Weapon)
+            {
+                Weapons += 1;
+                temp = new Ground { X = Y, Y = X - 1 };
+            }
+            if (temp is Life)
+            {
+                Health += 1;
+                temp = new Ground { X = Y, Y = X - 1 };
+            }
+        }
+
         public void Move(GameBoard.GameBoard gameBoard, Direction direction)
         {
             //TODO: попоробовать подобрать элемент 
+
+
             switch (direction)
             {
                 case Direction.LEFT:
-                    if (X-1 < 0) break;
+                    if (X - 1 < 0) break;
                     var temp1 = gameBoard.GameBoardItems[Y][X - 1];
+                    PickUp(temp1);
                     gameBoard.GameBoardItems[Y][X - 1] = this;
                     gameBoard.GameBoardItems[Y][X] = temp1;
                     X -= 1;
@@ -43,8 +59,9 @@ namespace RPG.Units
                     break;
                 case Direction.UP:
                     if (Y - 1 < 0) break;
-                    var temp2 = gameBoard.GameBoardItems[Y-1][X];
-                    gameBoard.GameBoardItems[Y-1][X] = this;
+                    var temp2 = gameBoard.GameBoardItems[Y - 1][X];
+                    PickUp(temp2);
+                    gameBoard.GameBoardItems[Y - 1][X] = this;
                     gameBoard.GameBoardItems[Y][X] = temp2;
                     Y -= 1;
                     temp2.Y += 1;
@@ -52,6 +69,7 @@ namespace RPG.Units
                 case Direction.RIGHT:
                     if (X + 1 >= gameBoard.Width) break;
                     var temp3 = gameBoard.GameBoardItems[Y][X + 1];
+                    PickUp(temp3);
                     gameBoard.GameBoardItems[Y][X + 1] = this;
                     gameBoard.GameBoardItems[Y][X] = temp3;
                     X += 1;
@@ -60,6 +78,7 @@ namespace RPG.Units
                 case Direction.DOWN:
                     if (Y + 1 >= gameBoard.Height) break;
                     var temp4 = gameBoard.GameBoardItems[Y + 1][X];
+                    PickUp(temp4);
                     gameBoard.GameBoardItems[Y + 1][X] = this;
                     gameBoard.GameBoardItems[Y][X] = temp4;
                     Y += 1;
@@ -68,7 +87,22 @@ namespace RPG.Units
             }
         }
 
-        public abstract void Attack(GameBoard.GameBoard gameBoard);
+        public void Attack(GameBoard.GameBoard gameBoard)
+        {
+            if (Weapons == 0) return;
+            if (X - 1 >= 0 && gameBoard.GameBoardItems[Y][X - 1] is Unit &&
+                ((Unit)gameBoard.GameBoardItems[Y][X - 1]).Army != Army)
+                ((Unit)gameBoard.GameBoardItems[Y][X - 1]).Health -= Hit;
+            if (Y - 1 >= 0 && gameBoard.GameBoardItems[Y - 1][X] is Unit &&
+                ((Unit)gameBoard.GameBoardItems[Y - 1][X]).Army != Army)
+                ((Unit)gameBoard.GameBoardItems[Y - 1][X]).Health -= Hit;
+            if (X + 1 < gameBoard.Width && gameBoard.GameBoardItems[Y][X + 1] is Unit &&
+                ((Unit)gameBoard.GameBoardItems[Y][X + 1]).Army != Army)
+                ((Unit)gameBoard.GameBoardItems[Y][X + 1]).Health -= Hit;
+            if (Y + 1 < gameBoard.Height && gameBoard.GameBoardItems[Y + 1][X] is Unit &&
+                ((Unit)gameBoard.GameBoardItems[Y + 1][X]).Army != Army)
+                ((Unit)gameBoard.GameBoardItems[Y + 1][X]).Health -= Hit;
+        }
 
         public int X { get; set; }
 
