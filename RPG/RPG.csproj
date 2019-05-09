@@ -59,6 +59,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\InverseBooleanConverter.cs" />
+    <Compile Include="Enums\Direction.cs" />
     <Compile Include="Enums\Level.cs" />
     <Compile Include="Enums\UnitType.cs" />
     <Compile Include="Factories\ArcherFactory.cs" />
@@ -103,6 +104,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ViewModels\GameViewModel.cs" />
+    <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
