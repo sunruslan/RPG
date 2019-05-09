@@ -22,30 +22,32 @@ namespace RPG.Units
 
         public int Hit { get; set; }
 
+        public Direction direction { get; set; } //direction лучше сделать полем класса
+
         public bool IsAlive
         {
             get { return Health > 0; }
         }
-
+        
+        // gдбираем элемент
         public void PickUp(IItem temp)
         {
             if (temp is Weapon)
             {
                 Weapons += 1;
-                temp = new Ground { X = Y, Y = X - 1 };
+                temp = new Ground { X = temp.X, Y = temp.Y };
             }
             if (temp is Life)
             {
                 Health += 1;
-                temp = new Ground { X = Y, Y = X - 1 };
+                temp = new Ground { X = temp.X, Y = temp.Y };
             }
         }
 
-        public void Move(GameBoard.GameBoard gameBoard, Direction direction)
+        
+        public void Move(GameBoard.GameBoard gameBoard)
         {
-            //TODO: попоробовать подобрать элемент 
-
-
+            
             switch (direction)
             {
                 case Direction.LEFT:
@@ -87,26 +89,95 @@ namespace RPG.Units
             }
         }
 
-        public void Attack(GameBoard.GameBoard gameBoard)
+        public bool Attack(GameBoard.GameBoard gameBoard)
         {
-            if (Weapons == 0) return;
+            if (Weapons == 0) return false;
             if (X - 1 >= 0 && gameBoard.GameBoardItems[Y][X - 1] is Unit &&
                 ((Unit)gameBoard.GameBoardItems[Y][X - 1]).Army != Army)
+            {
                 ((Unit)gameBoard.GameBoardItems[Y][X - 1]).Health -= Hit;
+                return true;
+            }
             if (Y - 1 >= 0 && gameBoard.GameBoardItems[Y - 1][X] is Unit &&
                 ((Unit)gameBoard.GameBoardItems[Y - 1][X]).Army != Army)
+            {
                 ((Unit)gameBoard.GameBoardItems[Y - 1][X]).Health -= Hit;
+                return true;
+            }
             if (X + 1 < gameBoard.Width && gameBoard.GameBoardItems[Y][X + 1] is Unit &&
                 ((Unit)gameBoard.GameBoardItems[Y][X + 1]).Army != Army)
+            {
                 ((Unit)gameBoard.GameBoardItems[Y][X + 1]).Health -= Hit;
+                return true;
+            }
             if (Y + 1 < gameBoard.Height && gameBoard.GameBoardItems[Y + 1][X] is Unit &&
                 ((Unit)gameBoard.GameBoardItems[Y + 1][X]).Army != Army)
+            {
                 ((Unit)gameBoard.GameBoardItems[Y + 1][X]).Health -= Hit;
+                return true;
+            }
+            return false;
         }
 
         public int X { get; set; }
 
         public int Y { get; set; }
         //Todo: выбрать экшн    
+
+        public void ChangeDirection()
+        {
+            direction = (Direction)((int)direction + 1);
+        }
+
+        public void Act(GameBoard.GameBoard gameBoard, Direction direction)
+        {
+            switch (direction)
+            {
+                case Direction.LEFT:
+                    if (gameBoard.GameBoardItems[Y][X - 1] is Wall || X - 1 < 0)
+                    {
+                        ChangeDirection();
+                        break;
+                    }
+                    if (!Attack(gameBoard))
+                    {
+                        Move(gameBoard);
+                    }
+                    break;
+                case Direction.UP:
+                    if (gameBoard.GameBoardItems[Y - 1][X] is Wall || Y - 1 < 0)
+                    {
+                        ChangeDirection();
+                        break;
+                    }
+                    if (!Attack(gameBoard))
+                    {
+                        Move(gameBoard);
+                    }
+                    break;
+                case Direction.RIGHT:
+                    if (gameBoard.GameBoardItems[Y][X + 1] is Wall || X + 1 >= gameBoard.Width)
+                    {
+                        ChangeDirection();
+                        break;
+                    }
+                    if (!Attack(gameBoard))
+                    {
+                        Move(gameBoard);
+                    }
+                    break;
+                case Direction.DOWN:
+                    if (gameBoard.GameBoardItems[Y + 1][X] is Wall || Y + 1 >= gameBoard.Height)
+                    {
+                        ChangeDirection();
+                        break;
+                    }
+                    if (!Attack(gameBoard))
+                    {
+                        Move(gameBoard);
+                    }
+                    break;
+            }
+        }
     }
 }
