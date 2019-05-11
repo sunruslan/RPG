@@ -158,7 +158,7 @@ namespace RPG.Units
 
         public void ChangeDirection()
         {
-            direction = (Direction)((int)direction + 1);
+            direction = (Direction)(((int)direction + 1) % 4);
         }
 
         public void Act(GameBoard.GameBoard gameBoard, Direction direction)
