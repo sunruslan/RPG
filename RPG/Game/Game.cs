@@ -47,6 +47,11 @@ namespace RPG.Game
             GameBoard = builder.GetGameBoard();
         }
 
+        public void GameStep()
+        {
+            if (_redArmy)
+        }
+
         private IItem _life;
         private IItem _weapon;
 

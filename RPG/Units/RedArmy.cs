@@ -57,11 +57,26 @@ namespace RPG.Units
             _units.Clear();
         }
 
-        public void Attack(GameBoard.GameBoard gameBoard)
+        public bool IsAlive()
+        {
+            return Units.Any(u => ((Unit)u).IsAlive);
+        }
+
+        public int Count()
+        {
+            return Units.Count;
+        }
+
+        public int AliveCount()
+        {
+            return Units.Count(u => ((Unit)u).IsAlive);
+        }
+
+        public void Act(GameBoard.GameBoard gameBoard)
         {
             foreach (var unit in _units)
             {
-                unit.Attack(gameBoard);
+                unit.Act(gameBoard);
             }
         }
 

@@ -91,10 +91,6 @@
     <Compile Include="Units\IArmy.cs" />
     <Compile Include="Units\IceMan.cs" />
     <Compile Include="Units\RedArmy.cs" />
-    <Compile Include="Units\States\PauseState.cs" />
-    <Compile Include="Units\States\PlayingState.cs" />
-    <Compile Include="Units\States\ReadyState.cs" />
-    <Compile Include="Units\States\State.cs" />
     <Compile Include="Units\Unit.cs" />
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

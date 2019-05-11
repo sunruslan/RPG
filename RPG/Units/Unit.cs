@@ -6,14 +6,11 @@ using System.Threading.Tasks;
 using RPG.Enums;
 using RPG.GameBoard;
 using RPG.Goods;
-using RPG.Units.States;
 
 namespace RPG.Units
 {
     public abstract class Unit : IItem
     {
-        public State State { get; set; }
-
         public IArmy Army { get; set; }
 
         public int Health { get; set; }
@@ -161,7 +158,7 @@ namespace RPG.Units
             direction = (Direction)(((int)direction + 1) % 4);
         }
 
-        public void Act(GameBoard.GameBoard gameBoard, Direction direction)
+        public void Act(GameBoard.GameBoard gameBoard)
         {
             switch (direction)
             {
