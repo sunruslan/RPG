@@ -23,11 +23,6 @@ namespace RPG.Game
 
         public GameBoard.GameBoard GameBoard { get; set; }
 
-        public void StuffAppear()
-        {
-
-        }
-
         public void Start()
         {
             var builder = new GameBoardBuilder();
