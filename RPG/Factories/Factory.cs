@@ -14,9 +14,5 @@ namespace RPG.Factories
 
         public abstract Weapon CreateWeapon();
 
-        public Coin CreateCoin()
-        {
-            return new Coin();
-        }
     }
 }

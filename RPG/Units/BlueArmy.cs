@@ -21,9 +21,7 @@ namespace RPG.Units
             {
                 Add(new Archer()
                 {
-                    Army = this,
-                    Lives = new Life[] { new Life(), new Life(), new Life() },
-                    Weapons = new Weapon[] { new Arrow(), new Arrow(), new Arrow() }
+                    Army = this
                 });
             }
 
@@ -31,9 +29,7 @@ namespace RPG.Units
             {
                 Add(new FireMan()
                 {
-                    Army = this,
-                    Lives = new Life[] { new Life(), new Life(), new Life() },
-                    Weapons = new Weapon[] {new Fire(), new Fire(), new Fire() }
+                    Army = this
                 });
             }
 
@@ -41,9 +37,7 @@ namespace RPG.Units
             {
                 Add(new IceMan()
                 {
-                    Army = this,
-                    Lives = new Life[] { new Life(), new Life(), new Life() },
-                    Weapons = new Weapon[] { new Ice(), new Ice(), new Ice() }
+                    Army = this
                 });
             }
         }
@@ -63,11 +57,11 @@ namespace RPG.Units
             _units.Clear();
         }
 
-        public void Attack()
+        public void Attack(GameBoard.GameBoard gameBoard)
         {
             foreach (var unit in _units)
             {
-                unit.Attack();
+                unit.Attack(gameBoard);
             }
         }
 

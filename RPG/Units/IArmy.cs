@@ -17,7 +17,7 @@ namespace RPG.Units
 
         void Clear();
 
-        void Attack();
+        void Attack(GameBoard.GameBoard gameBoard);
 
         ICollection<IItem> Units { get; }
     }
