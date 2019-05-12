@@ -15,16 +15,11 @@ namespace RPG.ViewModels
 {
     public class MainWindowViewModel : BindableBase
     {
-
         public MainWindowViewModel()
         {
             StartCommand = new DelegateCommand(Start);
             SetPlayerCommand = new DelegateCommand<string>(SetPlayer);
             SetLevelCommand = new DelegateCommand<string>(SetLevel);
-
-
-            _redArmy = new RedArmy();
-            _blueArmy = new BlueArmy();
         }
 
         public ICommand StartCommand { get; }
@@ -82,9 +77,5 @@ namespace RPG.ViewModels
         
         private bool _isStarted;
         private GameBoard.GameBoard _gameBoard;
-        private IArmy _blueArmy;
-        private IArmy _redArmy;
-        private IItem _life;
-        private IItem _weapon;
     }
 }
