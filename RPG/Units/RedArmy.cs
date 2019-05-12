@@ -100,6 +100,15 @@ namespace RPG.Units
             }
         }
 
+        public void UpdateAliveUnits()
+        {
+            var died = Units.Where(u => ((Unit) u).IsAlive).ToList();
+            foreach (var d in died)
+            {
+                Units.Remove(d);
+            }    
+        }
+
         public ICollection<IItem> Units
         {
             get { return _units.Select(u => (IItem)u).ToList(); }

@@ -69,6 +69,8 @@ namespace RPG.Game
         {
             if (_redArmy.IsAlive() && _blueArmy.IsAlive())
             {
+                _redArmy.UpdateAliveUnits();
+                _blueArmy.UpdateAliveUnits();
                 _redArmy.ActWithout(GameBoard, _player);
                 if(Actions.Count > 0) _player.Act(GameBoard, Actions.Dequeue());
                 _blueArmy.Act(GameBoard);
@@ -95,6 +97,7 @@ namespace RPG.Game
                     _player = _redArmy.IceMan;
                     break;
             }
+            
             switch (_level)
             {
                 case Level.EASY:

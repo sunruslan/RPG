@@ -33,6 +33,8 @@ namespace RPG.Units
 
         void Act(GameBoard.GameBoard gameBoard);
 
+        void UpdateAliveUnits();
+
         ICollection<IItem> Units { get; }
     }
 }

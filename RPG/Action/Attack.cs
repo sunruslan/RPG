@@ -22,6 +22,10 @@ namespace RPG.Action
                 ((Unit) gameBoard.GameBoardItems[y][x - 1]).Army != unit.Army)
             {
                 ((Unit) gameBoard.GameBoardItems[y][x - 1]).Health -= unit.Hit;
+                if (((Unit) gameBoard.GameBoardItems[y][x - 1]).Health <= 0)
+                {
+                    gameBoard.GameBoardItems[y][x - 1] = new Ground {X = x - 1, Y = y};
+                }
                 unit.Weapons -= 1;
                 res = true;
             }
@@ -29,6 +33,10 @@ namespace RPG.Action
                 ((Unit) gameBoard.GameBoardItems[y - 1][x]).Army != unit.Army)
             {
                 ((Unit) gameBoard.GameBoardItems[y - 1][x]).Health -= unit.Hit;
+                if (((Unit)gameBoard.GameBoardItems[y - 1][x]).Health <= 0)
+                {
+                    gameBoard.GameBoardItems[y - 1][x] = new Ground { X = x, Y = y - 1 };
+                }
                 unit.Weapons -= 1;
                 res = true;
             }
@@ -36,6 +44,10 @@ namespace RPG.Action
                 ((Unit) gameBoard.GameBoardItems[y][x + 1]).Army != unit.Army)
             {
                 ((Unit) gameBoard.GameBoardItems[y][x + 1]).Health -= unit.Hit;
+                if (((Unit)gameBoard.GameBoardItems[y][x + 1]).Health <= 0)
+                {
+                    gameBoard.GameBoardItems[y][x + 1] = new Ground { X = x + 1, Y = y };
+                }
                 unit.Weapons -= 1;
                 res = true;
             }
@@ -43,6 +55,10 @@ namespace RPG.Action
                 ((Unit) gameBoard.GameBoardItems[y + 1][x]).Army != unit.Army)
             {
                 ((Unit) gameBoard.GameBoardItems[y + 1][x]).Health -= unit.Hit;
+                if (((Unit)gameBoard.GameBoardItems[y + 1][x]).Health <= 0)
+                {
+                    gameBoard.GameBoardItems[y + 1][x] = new Ground { X = x, Y = y + 1 };
+                }
                 unit.Weapons -= 1;
                 res = true;
             }

@@ -31,7 +31,7 @@ namespace RPG
             var title = winner ? "Победа" : "Проигрыш";
             var message = winner
                 ? "Поздравляем! Переходите на следующий уровень!"
-                : "Не переживайте! В следующий раз ужача будет на вашей стороне.";
+                : "Не переживайте! В следующий раз удача будет на вашей стороне.";
             var result = MessageBox.Show(message, title,
                 MessageBoxButton.OK,
                 MessageBoxImage.Question);

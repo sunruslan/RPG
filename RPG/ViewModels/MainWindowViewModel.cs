@@ -127,6 +127,11 @@ namespace RPG.ViewModels
             X = Game.X;
             Y = Game.Y;
             Health = Game.Health;
+            if (Health <= 0)
+            {
+                _timer.Stop();
+                _viewLauncher.ShowWinner(false);
+            }
             if (Game.IsFinished)
             {
                 _timer.Stop();

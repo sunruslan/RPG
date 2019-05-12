@@ -39,6 +39,7 @@ namespace RPG.Units
 
         public void Act(GameBoard.GameBoard gameBoard)
         {
+            if (!IsAlive) return;
             IAction action = new Attack();
             if (!action.Act(this, gameBoard))
             {
@@ -50,6 +51,7 @@ namespace RPG.Units
 
         public void Act(GameBoard.GameBoard gameBoard, IAction action)
         {
+            if (!IsAlive) return;
             action.Act(this, gameBoard);
         }
     }
