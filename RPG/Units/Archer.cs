@@ -10,8 +10,6 @@ namespace RPG.Units
     {
         public Archer()
         {
-            Hit = 60;
-            Health = 70;
         }
     }
 }
