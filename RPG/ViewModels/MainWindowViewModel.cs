@@ -1,7 +1,10 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Threading;
 using System.Windows;
 using System.Windows.Forms.VisualStyles;
 using System.Windows.Input;
+using System.Windows.Threading;
 using Prism.Commands;
 using Prism.Mvvm;
 using RPG.Enums;
@@ -18,6 +21,10 @@ namespace RPG.ViewModels
             StartCommand = new DelegateCommand(Start);
             SetPlayerCommand = new DelegateCommand<string>(SetPlayer);
             SetLevelCommand = new DelegateCommand<string>(SetLevel);
+
+
+            _redArmy = new RedArmy();
+            _blueArmy = new BlueArmy();
         }
 
         public ICommand StartCommand { get; }
@@ -36,13 +43,7 @@ namespace RPG.ViewModels
 
         public UnitType Player { get; set; } = UnitType.UNKNOWN;
 
-        public TimeSpan RoundTime
-        {
-            get { return _roundTime; }
-            set { SetProperty(ref _roundTime, value); }
-        }
-
-
+        public Game.Game Game { get; set; }
 
         public GameBoard.GameBoard GameBoard
         {
@@ -53,10 +54,20 @@ namespace RPG.ViewModels
         private void Start()
         {
             if (Level == Level.UNKHOWN || Player == UnitType.UNKNOWN) return;
-            var game = new Game.Game(Level, Player);
-            game.Start();
-            GameBoard = game.GameBoard;
+            Game = new Game.Game(Level, Player);
+            Game.Start();
+            GameBoard = Game.GameBoard;
             IsStarted = true;
+            var timer = new DispatcherTimer();
+            timer.Tick += new EventHandler(GameStep);
+            timer.Interval = new TimeSpan(0, 0, 1);
+            timer.Start();
+        }
+
+        public void GameStep(object sender, EventArgs e)
+        {
+            GameBoard = null;
+            GameBoard = Game.GameBoard;
         }
 
         private void SetLevel(string level)
@@ -69,8 +80,11 @@ namespace RPG.ViewModels
             Player = (UnitType) int.Parse(type);
         }
         
-        private bool _isStarted = false;
-        private TimeSpan _roundTime = TimeSpan.Zero;
+        private bool _isStarted;
         private GameBoard.GameBoard _gameBoard;
+        private IArmy _blueArmy;
+        private IArmy _redArmy;
+        private IItem _life;
+        private IItem _weapon;
     }
 }

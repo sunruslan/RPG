@@ -10,7 +10,7 @@ namespace RPG.Units
     {
         public IceMan()
         {
-            Hit = 10;
+            Hit = 60;
             Health = 100;
         }
     }

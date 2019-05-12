@@ -19,7 +19,7 @@ namespace RPG.Units
 
         public int Hit { get; set; }
 
-        public Direction direction { get; set; }
+        public Direction direction { get; set; } = Direction.LEFT;
 
         public bool IsAlive
         {
@@ -28,29 +28,29 @@ namespace RPG.Units
         
         public void SetNewStuff(IItem temp, IItem stuff, GameBoard.GameBoard gameBoard)
         {
-            if (gameBoard.GameBoardItems[temp.X + 1][temp.Y] is Ground)
+            if (temp.X + 1 < gameBoard.Width && gameBoard.GameBoardItems[temp.Y][temp.X + 1] is Ground)
             {
                 stuff.X = temp.X + 1;
                 stuff.Y = temp.Y;
-                gameBoard.GameBoardItems[temp.X + 1][temp.Y] = stuff;
+                gameBoard.GameBoardItems[temp.Y][temp.X + 1] = stuff;
             }
-            if (gameBoard.GameBoardItems[temp.X][temp.Y + 1] is Ground)
+            if (temp.Y + 1 < gameBoard.Height && gameBoard.GameBoardItems[temp.Y + 1][temp.X] is Ground)
             {
                 stuff.X = temp.X;
                 stuff.Y = temp.Y + 1;
-                gameBoard.GameBoardItems[temp.X][temp.Y + 1] = stuff;
+                gameBoard.GameBoardItems[temp.Y + 1][temp.X] = stuff;
             }
-            if (gameBoard.GameBoardItems[temp.X - 1][temp.Y] is Ground)
+            if (temp.X - 1 >= 0 && gameBoard.GameBoardItems[temp.Y][temp.X - 1] is Ground)
             {
                 stuff.X = temp.X - 1;
                 stuff.Y = temp.Y;
-                gameBoard.GameBoardItems[temp.X - 1][temp.Y] = stuff;
+                gameBoard.GameBoardItems[temp.Y][temp.X - 1] = stuff;
             }
-            if (gameBoard.GameBoardItems[temp.X][temp.Y - 1] is Ground)
+            if (temp.Y - 1 >= 0 && gameBoard.GameBoardItems[temp.Y - 1][temp.X] is Ground)
             {
                 stuff.X = temp.X;
                 stuff.Y = temp.Y - 1;
-                gameBoard.GameBoardItems[temp.X][temp.Y - 1] = stuff;
+                gameBoard.GameBoardItems[temp.Y - 1][temp.X] = stuff;
             }
         }
 
@@ -163,7 +163,7 @@ namespace RPG.Units
             switch (direction)
             {
                 case Direction.LEFT:
-                    if (gameBoard.GameBoardItems[Y][X - 1] is Wall || X - 1 < 0)
+                    if (X - 1 < 0 || gameBoard.GameBoardItems[Y][X - 1] is Wall)
                     {
                         ChangeDirection();
                         break;
@@ -174,7 +174,7 @@ namespace RPG.Units
                     }
                     break;
                 case Direction.UP:
-                    if (gameBoard.GameBoardItems[Y - 1][X] is Wall || Y - 1 < 0)
+                    if (Y - 1 < 0 || gameBoard.GameBoardItems[Y - 1][X] is Wall)
                     {
                         ChangeDirection();
                         break;
@@ -185,7 +185,7 @@ namespace RPG.Units
                     }
                     break;
                 case Direction.RIGHT:
-                    if (gameBoard.GameBoardItems[Y][X + 1] is Wall || X + 1 >= gameBoard.Width)
+                    if (X + 1 >= gameBoard.Width || gameBoard.GameBoardItems[Y][X + 1] is Wall)
                     {
                         ChangeDirection();
                         break;
@@ -196,7 +196,7 @@ namespace RPG.Units
                     }
                     break;
                 case Direction.DOWN:
-                    if (gameBoard.GameBoardItems[Y + 1][X] is Wall || Y + 1 >= gameBoard.Height)
+                    if (Y + 1 >= gameBoard.Height || gameBoard.GameBoardItems[Y + 1][X] is Wall)
                     {
                         ChangeDirection();
                         break;

@@ -10,7 +10,7 @@ namespace RPG.Units
     {
         public FireMan()
         {
-            Hit = 20;
+            Hit = 60;
             Health = 80;
         }
     }

@@ -84,9 +84,14 @@
             </StackPanel>
             <Button Content="Играть!" Background="YellowGreen" FontSize="40" Command="{Binding StartCommand}"/>
         </UniformGrid>
-        <StackPanel DockPanel.Dock="Left" Width="Auto">
-            <TextBlock FontSize="50" Text="{Binding RoundTime}"/>
-        </StackPanel>
-        <ItemsControl Margin="20" ItemsSource="{Binding GameBoard.GameBoardItems}" ItemTemplate="{StaticResource DataTemplate_Level1}"/>
+        <ContentControl Content="{Binding GameBoard}">
+            <ContentControl.ContentTemplate>
+                <DataTemplate DataType="{x:Type gameBoard:GameBoard}">
+                    <ItemsControl Margin="200,20" 
+                                  ItemsSource="{Binding GameBoardItems, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                  ItemTemplate="{DynamicResource DataTemplate_Level1}"/>
+                </DataTemplate>
+            </ContentControl.ContentTemplate>
+        </ContentControl>
     </DockPanel>
 </Window>

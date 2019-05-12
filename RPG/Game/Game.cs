@@ -4,6 +4,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Threading;
 using RPG.Enums;
 using RPG.GameBoard;
 using RPG.Units;
@@ -45,11 +47,25 @@ namespace RPG.Game
             }
             director.Create(_redArmy.Units, _blueArmy.Units, _life, _weapon);
             GameBoard = builder.GetGameBoard();
+            var timer = new DispatcherTimer();
+            timer.Tick += new EventHandler(GameStep);
+            timer.Interval = new TimeSpan(0, 0, 1);
+            timer.Start();
         }
 
-        public void GameStep()
+        public void GameStep(object sender, EventArgs e)
         {
-            if (_redArmy)
+            if (_redArmy.IsAlive() && _blueArmy.IsAlive())
+            {
+                _blueArmy.Act(GameBoard);
+                _redArmy.Act(GameBoard);
+            }
+            else
+            {
+
+                MessageBox.Show("win kto-to");
+            }
+            //MessageBox.Show($"reds: {_redArmy.AliveCount()}\nblues:{_blueArmy.AliveCount()}");
         }
 
         private IItem _life;
