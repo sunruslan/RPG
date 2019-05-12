@@ -17,7 +17,23 @@ namespace RPG.Units
 
         void Clear();
 
-        void Attack();
+        bool IsAlive();
+
+        int Count();
+
+        int AliveCount();
+
+        Archer Archer { get; }
+
+        FireMan FireMan { get; }
+
+        IceMan IceMan { get; }
+
+        void ActWithout(GameBoard.GameBoard gameBoard, Unit unit);
+
+        void Act(GameBoard.GameBoard gameBoard);
+
+        void UpdateAliveUnits();
 
         ICollection<IItem> Units { get; }
     }

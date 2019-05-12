@@ -11,13 +11,10 @@ namespace RPG.Factories
 {
     public class IceFactory : Factory
     {
-        public override Unit CreateUnit()
+        public override Unit CreateUnit(IArmy army)
         {
-            return new IceMan()
-            {
-                Lives = new Life[] {new Life(), new Life(), new Life()},
-                Weapons = new Weapon[] {new Ice(), new Ice(), new Ice()}
-            };
+            var iceMan = new IceMan {Army = army, Hit = 10, Health = 100, Weapons = 20};
+            return iceMan;
         }
 
         public override Weapon CreateWeapon()
