@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using RPG.Enums;
 using RPG.GameBoard;
 using RPG.Goods;
+using RPG.Action;
 
 namespace RPG.Units
 {
@@ -33,24 +34,28 @@ namespace RPG.Units
                 stuff.X = temp.X + 1;
                 stuff.Y = temp.Y;
                 gameBoard.GameBoardItems[temp.Y][temp.X + 1] = stuff;
+                return;
             }
             if (temp.Y + 1 < gameBoard.Height && gameBoard.GameBoardItems[temp.Y + 1][temp.X] is Ground)
             {
                 stuff.X = temp.X;
                 stuff.Y = temp.Y + 1;
                 gameBoard.GameBoardItems[temp.Y + 1][temp.X] = stuff;
+                return;
             }
             if (temp.X - 1 >= 0 && gameBoard.GameBoardItems[temp.Y][temp.X - 1] is Ground)
             {
                 stuff.X = temp.X - 1;
                 stuff.Y = temp.Y;
                 gameBoard.GameBoardItems[temp.Y][temp.X - 1] = stuff;
+                return;
             }
             if (temp.Y - 1 >= 0 && gameBoard.GameBoardItems[temp.Y - 1][temp.X] is Ground)
             {
                 stuff.X = temp.X;
                 stuff.Y = temp.Y - 1;
                 gameBoard.GameBoardItems[temp.Y - 1][temp.X] = stuff;
+                return;
             }
         }
 
@@ -63,20 +68,22 @@ namespace RPG.Units
                 temp = new Ground { X = temp.X, Y = temp.Y };
                 var newWeapon = new Weapon { X = 0, Y = 0 };
                 SetNewStuff(temp, newWeapon, gameBoard);
+                return;
             }
             if (temp is Life)
             {
-                Health += 1;
+                Health += 10;
                 temp = new Ground { X = temp.X, Y = temp.Y };
                 var newLife = new Life { X = 0, Y = 0 };
                 SetNewStuff(temp, newLife, gameBoard);
+                return;
             }
         }
 
         
         public void Move(GameBoard.GameBoard gameBoard)
         {
-            
+            //ChangeDirection(this);
             switch (direction)
             {
                 case Direction.LEFT:
@@ -153,19 +160,95 @@ namespace RPG.Units
 
         public int Y { get; set; }
 
-        public void ChangeDirection()
+        public void ChangeDirection(IItem fighter)
         {
-            direction = (Direction)(((int)direction + 1) % 4);
+            Random rnd = new Random(fighter.GetHashCode());
+            direction = (Direction)(rnd.Next(0, 4));
+        }
+
+        public IItem FindEnemy(IItem fighter, GameBoard.GameBoard gameBoard)
+        {
+            for (int i = -1; i <= 1; ++i)
+            {
+                for (int j = -1; j <= 1; ++j)
+                {
+                    if (i == 0 && j == 0)
+                        continue;
+                    if (fighter.Y + i < 0 || fighter.Y + i >= gameBoard.Height ||
+                    fighter.X + j < 0 || fighter.X + j >= gameBoard.Width)
+                        continue;
+
+                    if (gameBoard.GameBoardItems[fighter.Y + i][fighter.X + j] is Unit &&
+                     ((Unit)gameBoard.GameBoardItems[fighter.Y = i][fighter.X + j]).Army != Army)
+                    {
+                        return gameBoard.GameBoardItems[fighter.Y + i][fighter.X + j];
+                    }
+                }
+                return null;
+            }
+        }
+
+        public IItem FindUnit(Unit fighter, GameBoard.GameBoard gameBoard)
+        {
+            bool[ , ] visited = new bool[gameBoard.Height, gameBoard.Width];
+            for (int i = 0; i < gameBoard.Height; ++i)
+                for (int j = 0; j < gameBoard.Width; ++j)
+                    visited[i, j] = false;
+            visited[fighter.Y, fighter.X] = true;
+            IItem item = null;
+            while (!(item is Unit))
+            {
+                for (int i = -1; i <= 1; ++i)
+                {
+                    for (int j = -1; j <= 1; ++j)
+                    {
+                        if (i == 0 && j == 0)
+                            continue;
+                        if (fighter.Y + i < 0 || fighter.Y + i >= gameBoard.Height ||
+                        fighter.X + j < 0 || fighter.X + j >= gameBoard.Width)
+                            continue;
+
+                        if (!visited[fighter.Y + i, fighter.X + j])
+                        {
+                            if (gameBoard.GameBoardItems[fighter.Y + i][fighter.X + j] is Unit &&
+                            ((Unit)gameBoard.GameBoardItems[fighter.Y = i][fighter.X + j]).Army != Army)
+                            {
+                                return gameBoard.GameBoardItems[fighter.Y + i][fighter.X + j];
+                            }
+                        } 
+                            gameBoard.GameBoardItems[fighter.Y + i][fighter.X + j] is Unit &&
+                         ((Unit)gameBoard.GameBoardItems[fighter.Y = i][fighter.X + j]).Army != Army)
+                        {
+                            return gameBoard.GameBoardItems[fighter.Y + i][fighter.X + j];
+                        } else
+                        {
+
+                        }
+                    }
+                    return null;
+                }
+            }
+            return item;
         }
 
         public void Act(GameBoard.GameBoard gameBoard)
         {
+            var context = new Context();
+            var enemy = FindEnemy(this, gameBoard);
+            if (enemy == null)
+            {
+                context.SetAction(new Move());
+            } else
+            {
+                context.SetAction(new Attack());
+            }
+            context.DoAction(this, element, gameBoard);
             switch (direction)
             {
                 case Direction.LEFT:
                     if (X - 1 < 0 || gameBoard.GameBoardItems[Y][X - 1] is Wall)
                     {
-                        ChangeDirection();
+                        ChangeDirection(this);
                         break;
                     }
                     if (!Attack(gameBoard))
@@ -176,7 +259,7 @@ namespace RPG.Units
                 case Direction.UP:
                     if (Y - 1 < 0 || gameBoard.GameBoardItems[Y - 1][X] is Wall)
                     {
-                        ChangeDirection();
+                        ChangeDirection(this);
                         break;
                     }
                     if (!Attack(gameBoard))
@@ -187,7 +270,7 @@ namespace RPG.Units
                 case Direction.RIGHT:
                     if (X + 1 >= gameBoard.Width || gameBoard.GameBoardItems[Y][X + 1] is Wall)
                     {
-                        ChangeDirection();
+                        ChangeDirection(this);
                         break;
                     }
                     if (!Attack(gameBoard))
@@ -198,7 +281,7 @@ namespace RPG.Units
                 case Direction.DOWN:
                     if (Y + 1 >= gameBoard.Height || gameBoard.GameBoardItems[Y + 1][X] is Wall)
                     {
-                        ChangeDirection();
+                        ChangeDirection(this);
                         break;
                     }
                     if (!Attack(gameBoard))
