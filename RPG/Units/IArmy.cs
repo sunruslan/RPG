@@ -29,6 +29,8 @@ namespace RPG.Units
 
         IceMan IceMan { get; }
 
+        void ActWithout(GameBoard.GameBoard gameBoard, Unit unit);
+
         void Act(GameBoard.GameBoard gameBoard);
 
         ICollection<IItem> Units { get; }

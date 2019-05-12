@@ -22,6 +22,11 @@ namespace RPG.ViewModels
             StartCommand = new DelegateCommand(Start);
             SetPlayerCommand = new DelegateCommand<string>(SetPlayer);
             SetLevelCommand = new DelegateCommand<string>(SetLevel);
+            MoveLeftCommand = new DelegateCommand(MoveLeft);
+            MoveUpCommand = new DelegateCommand(MoveUp);
+            MoveRightCommand = new DelegateCommand(MoveRight);
+            MoveDownCommand = new DelegateCommand(MoveDown);
+            AttackCommand = new DelegateCommand(Attack);
         }
 
         public ICommand StartCommand { get; }
@@ -30,6 +35,16 @@ namespace RPG.ViewModels
 
         public ICommand SetLevelCommand { get; }
 
+        public ICommand MoveLeftCommand { get; }
+
+        public ICommand MoveUpCommand { get; }
+
+        public ICommand MoveRightCommand { get; }
+
+        public ICommand MoveDownCommand { get; }
+
+        public ICommand AttackCommand { get; }
+        
         public string Name
         {
             get
@@ -127,7 +142,32 @@ namespace RPG.ViewModels
         {
             Player = (UnitType) int.Parse(type);
         }
-        
+
+        private void MoveLeft()
+        {
+            Game.Actions.Enqueue();
+        }
+
+        private void MoveUp()
+        {
+            Game.Actions.Enqueue();
+        }
+
+        private void MoveRight()
+        {
+            Game.Actions.Enqueue();
+        }
+
+        private void MoveDown()
+        {
+            Game.Actions.Enqueue();
+        }
+
+        private void Attack()
+        {
+            Game.Actions.Enqueue();
+        }
+
         private bool _isStarted;
         private GameBoard.GameBoard _gameBoard;
         private int _x, _y, _health, _weapons;

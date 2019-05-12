@@ -18,6 +18,13 @@
     WindowState="Maximized"
     WindowStyle="None"
     mc:Ignorable="d">
+    <Window.InputBindings>
+        <KeyBinding Key="A" Command="{Binding MoveLeftCommand}" />
+        <KeyBinding Key="W" Command="{Binding MoveUpCommand}" />
+        <KeyBinding Key="D" Command="{Binding MoveRightCommand}" />
+        <KeyBinding Key="S" Command="{Binding MoveDownCommand}" />
+        <KeyBinding Key="Space" Command="{Binding AttackCommand}" />
+    </Window.InputBindings>
     <Window.Resources>
         <converter:InverseBooleanConverter x:Key="InverseBooleanConverter" />
         <DataTemplate x:Key="DataTemplate_Level2">

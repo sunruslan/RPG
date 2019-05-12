@@ -83,6 +83,15 @@ namespace RPG.Units
             get { return Units.FirstOrDefault(t => t is IceMan) as IceMan; }
         }
 
+        public void ActWithout(GameBoard.GameBoard gameBoard, Unit unit)
+        {
+            foreach (var u in _units)
+            {
+                if (u == unit) continue;
+                unit.Act(gameBoard);
+            }
+        }
+
         public void Act(GameBoard.GameBoard gameBoard)
         {
             foreach (var unit in _units)

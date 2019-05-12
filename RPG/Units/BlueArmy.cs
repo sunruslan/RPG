@@ -96,6 +96,15 @@ namespace RPG.Units
             get { return _units.Select(u => (IItem)u).ToList(); }
         }
 
+        public void ActWithout(GameBoard.GameBoard gameBoard, Unit unit)
+        {
+            foreach (var u in _units)
+            {
+                if (u == unit) continue;
+                unit.Act(gameBoard);
+            }
+        }
+
         private ICollection<Unit> _units;
     }
 }

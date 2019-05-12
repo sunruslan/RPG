@@ -29,6 +29,7 @@ namespace RPG.Game
         {
             get { return _player.X; }
         }
+
         public int Y
         {
             get { return _player.Y; }
@@ -49,6 +50,8 @@ namespace RPG.Game
             get { return Winner != null; }
         }
 
+        public Queue<IAction> Actions { get; set; }
+
         public IArmy Winner { get; private set; }
 
         public void Start()
@@ -64,8 +67,9 @@ namespace RPG.Game
         {
             if (_redArmy.IsAlive() && _blueArmy.IsAlive())
             {
+                _redArmy.ActWithout(GameBoard, _player);
+                _player.Act(GameBoard);
                 _blueArmy.Act(GameBoard);
-                _redArmy.Act(GameBoard);
             }
             if (!_blueArmy.IsAlive()) Winner = _redArmy;
             if (!_redArmy.IsAlive()) Winner = _blueArmy;
