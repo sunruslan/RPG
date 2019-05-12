@@ -147,6 +147,7 @@ namespace RPG.ViewModels
         private void SetPlayer(string type)
         {
             Player = (UnitType) int.Parse(type);
+            RaisePropertyChanged(nameof(Name));
         }
 
         private void MoveLeft()

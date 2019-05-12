@@ -222,7 +222,7 @@
             <ContentControl.ContentTemplate>
                 <DataTemplate DataType="{x:Type gameBoard:GameBoard}">
                     <ItemsControl
-                        Margin="200,20"
+                        Margin="200,5"
                         ItemTemplate="{DynamicResource DataTemplate_Level1}"
                         ItemsSource="{Binding GameBoardItems, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </DataTemplate>
