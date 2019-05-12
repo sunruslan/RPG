@@ -11,8 +11,6 @@
     xmlns:units="clr-namespace:RPG.Units"
     xmlns:viewModel="clr-namespace:RPG.ViewModels"
     Title="RPG"
-    Width="525"
-    Height="350"
     d:DataContext="{d:DesignInstance viewModel:MainWindowViewModel}"
     prism:ViewModelLocator.AutoWireViewModel="True"
     ResizeMode="NoResize"
@@ -77,6 +75,7 @@
     <DockPanel>
         <UniformGrid
             Height="Auto"
+            Background="LightGray"
             Columns="3"
             DockPanel.Dock="Top"
             IsEnabled="{Binding IsStarted, Converter={StaticResource InverseBooleanConverter}}"
@@ -129,6 +128,89 @@
                 Content="Играть!"
                 FontSize="40" />
         </UniformGrid>
+        <Grid Background="AntiqueWhite" DockPanel.Dock="Left">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="5"
+                Padding="5"
+                Text="Игрок:" />
+            <TextBlock
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="5"
+                Padding="5"
+                Text="Горизонталь:" />
+            <TextBlock
+                Grid.Row="2"
+                Grid.Column="0"
+                Margin="5"
+                Padding="5"
+                Text="Вертикаль:" />
+            <TextBlock
+                Grid.Row="3"
+                Grid.Column="0"
+                Margin="5"
+                Padding="5"
+                Text="Здоровье:" />
+            <TextBlock
+                Grid.Row="4"
+                Grid.Column="0"
+                Margin="5"
+                Padding="5"
+                Text="Оружий:" />
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="5"
+                Padding="5"
+                Text="{Binding Name}" />
+            <TextBlock
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="5"
+                Padding="5"
+                Text="{Binding X}" />
+            <TextBlock
+                Grid.Row="2"
+                Grid.Column="1"
+                Margin="5"
+                Padding="5"
+                Text="{Binding Y}" />
+            <TextBlock
+                Grid.Row="3"
+                Grid.Column="1"
+                Margin="5"
+                Padding="5"
+                Text="{Binding Health}" />
+            <TextBlock
+                Grid.Row="4"
+                Grid.Column="1"
+                Margin="5"
+                Padding="5"
+                Text="{Binding Weapons}" />
+        </Grid>
+        <StackPanel DockPanel.Dock="Bottom">
+            <TextBlock
+                Margin="5"
+                Padding="5"
+                Text="W, A, S, D - перемещение" />
+            <TextBlock
+                Margin="5"
+                Padding="5"
+                Text="Space - удар" />
+        </StackPanel>
         <ContentControl Content="{Binding GameBoard}">
             <ContentControl.ContentTemplate>
                 <DataTemplate DataType="{x:Type gameBoard:GameBoard}">

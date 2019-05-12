@@ -1,7 +1,9 @@
-﻿using RPG.Views;
+﻿using System.ComponentModel;
+using RPG.Views;
 using Prism.Ioc;
 using Prism.Modularity;
 using System.Windows;
+using RPG.ViewModels;
 
 namespace RPG
 {
@@ -14,12 +16,8 @@ namespace RPG
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterInstance(typeof(ViewLauncher), new ViewLauncher(Container));
-        }
-
-        protected override void OnInitialized()
-        {
-            Container.Resolve<ViewLauncher>().ShowMainWindow();
+            var viewLauncher = new ViewLauncher(Container);
+            containerRegistry.RegisterInstance(typeof(ViewLauncher), viewLauncher);
         }
     }
 }

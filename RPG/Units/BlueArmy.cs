@@ -53,6 +53,21 @@ namespace RPG.Units
             _units.Clear();
         }
 
+        public Archer Archer
+        {
+            get { return Units.FirstOrDefault(t => t is Archer) as Archer; }
+        }
+
+        public FireMan FireMan
+        {
+            get { return Units.FirstOrDefault(t => t is FireMan) as FireMan; }
+        }
+
+        public IceMan IceMan
+        {
+            get { return Units.FirstOrDefault(t => t is IceMan) as IceMan; }
+        }
+
         public bool IsAlive()
         {
             return Units.Any(u => ((Unit) u).IsAlive);

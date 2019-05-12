@@ -15,8 +15,10 @@ namespace RPG.ViewModels
 {
     public class MainWindowViewModel : BindableBase
     {
-        public MainWindowViewModel()
+        public MainWindowViewModel(ViewLauncher viewLauncher)
         {
+            _viewLauncher = viewLauncher;
+
             StartCommand = new DelegateCommand(Start);
             SetPlayerCommand = new DelegateCommand<string>(SetPlayer);
             SetLevelCommand = new DelegateCommand<string>(SetLevel);
@@ -27,7 +29,49 @@ namespace RPG.ViewModels
         public ICommand SetPlayerCommand { get; }
 
         public ICommand SetLevelCommand { get; }
-        
+
+        public string Name
+        {
+            get
+            {
+                switch (Player)
+                {
+                    case UnitType.ARCHER:
+                        return "Лучник";
+                    case UnitType.FIREMAN:
+                        return "Человек-огня";
+                    case UnitType.ICEMAN:
+                        return "Человек-льда";
+                }
+
+                return "Неизвестно";
+            }
+        }
+
+        public int X
+        {
+            get { return _x; }
+            set { SetProperty(ref _x, value); }
+        }
+
+        public int Y
+        {
+            get { return _y; }
+            set { SetProperty(ref _y, value); }
+        }
+
+        public int Health
+        {
+            get { return _health; }
+            set { SetProperty(ref _health, value); }
+        }
+
+        public int Weapons
+        {
+            get { return _weapons; }
+            set { SetProperty(ref _weapons, value); }
+        }
+
         public bool IsStarted
         {
             get { return _isStarted; }
@@ -53,16 +97,25 @@ namespace RPG.ViewModels
             Game.Start();
             GameBoard = Game.GameBoard;
             IsStarted = true;
-            var timer = new DispatcherTimer();
-            timer.Tick += new EventHandler(GameStep);
-            timer.Interval = new TimeSpan(0, 0, 1);
-            timer.Start();
+            _timer = new DispatcherTimer();
+            _timer.Tick += new EventHandler(GameStep);
+            _timer.Interval = new TimeSpan(0, 0, 1);
+            _timer.Start();
         }
 
         public void GameStep(object sender, EventArgs e)
         {
             GameBoard = null;
             GameBoard = Game.GameBoard;
+            Weapons = Game.Weapons;
+            X = Game.X;
+            Y = Game.Y;
+            Health = Game.Health;
+            if (Game.IsFinished)
+            {
+                _timer.Stop();
+                _viewLauncher.ShowWinner(Game.Winner.GetType() == typeof(RedArmy));
+            }
         }
 
         private void SetLevel(string level)
@@ -77,5 +130,8 @@ namespace RPG.ViewModels
         
         private bool _isStarted;
         private GameBoard.GameBoard _gameBoard;
+        private int _x, _y, _health, _weapons;
+        private DispatcherTimer _timer;
+        private ViewLauncher _viewLauncher;
     }
 }
