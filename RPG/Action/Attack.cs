@@ -10,31 +10,43 @@ using RPG.Goods;
 
 namespace RPG.Action
 {
-    class Attack : IAction
+    public class Attack : IAction
     {
-        void Act(Unit fighter, IItem element, GameBoard.GameBoard gameBoard);
+        public bool Act(Unit unit, GameBoard.GameBoard gameBoard)
         {
-            if (Weapons == 0) return;
-            if (X - 1 >= 0 && gameBoard.GameBoardItems[Y][X - 1] is Unit &&
-                ((Unit)gameBoard.GameBoardItems[Y][X - 1]).Army != Army)
+            if (unit.Weapons == 0) return false;
+            var x = unit.X;
+            var y = unit.Y;
+            var res = false;
+            if (x - 1 >= 0 && gameBoard.GameBoardItems[y][x - 1] is Unit &&
+                ((Unit) gameBoard.GameBoardItems[y][x - 1]).Army != unit.Army)
             {
-                ((Unit)gameBoard.GameBoardItems[Y][X - 1]).Health -= Hit;
+                ((Unit) gameBoard.GameBoardItems[y][x - 1]).Health -= unit.Hit;
+                unit.Weapons -= 1;
+                res = true;
             }
-            if (Y - 1 >= 0 && gameBoard.GameBoardItems[Y - 1][X] is Unit &&
-                ((Unit)gameBoard.GameBoardItems[Y - 1][X]).Army != Army)
+            if (y - 1 >= 0 && gameBoard.GameBoardItems[y - 1][x] is Unit &&
+                ((Unit) gameBoard.GameBoardItems[y - 1][x]).Army != unit.Army)
             {
-                ((Unit)gameBoard.GameBoardItems[Y - 1][X]).Health -= Hit;
+                ((Unit) gameBoard.GameBoardItems[y - 1][x]).Health -= unit.Hit;
+                unit.Weapons -= 1;
+                res = true;
             }
-            if (X + 1 < gameBoard.Width && gameBoard.GameBoardItems[Y][X + 1] is Unit &&
-                ((Unit)gameBoard.GameBoardItems[Y][X + 1]).Army != Army)
+            if (x + 1 < gameBoard.Width && gameBoard.GameBoardItems[y][x + 1] is Unit &&
+                ((Unit) gameBoard.GameBoardItems[y][x + 1]).Army != unit.Army)
             {
-                ((Unit)gameBoard.GameBoardItems[Y][X + 1]).Health -= Hit;
+                ((Unit) gameBoard.GameBoardItems[y][x + 1]).Health -= unit.Hit;
+                unit.Weapons -= 1;
+                res = true;
             }
-            if (Y + 1 < gameBoard.Height && gameBoard.GameBoardItems[Y + 1][X] is Unit &&
-                ((Unit)gameBoard.GameBoardItems[Y + 1][X]).Army != Army)
+            if (y + 1 < gameBoard.Height && gameBoard.GameBoardItems[y + 1][x] is Unit &&
+                ((Unit) gameBoard.GameBoardItems[y + 1][x]).Army != unit.Army)
             {
-                ((Unit)gameBoard.GameBoardItems[Y + 1][X]).Health -= Hit;
+                ((Unit) gameBoard.GameBoardItems[y + 1][x]).Health -= unit.Hit;
+                unit.Weapons -= 1;
+                res = true;
             }
+            return res;
         }
     }
 }

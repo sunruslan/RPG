@@ -59,7 +59,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Action\Attack.cs" />
-    <Compile Include="Action\Context.cs" />
     <Compile Include="Action\IAction.cs" />
     <Compile Include="Action\Move.cs" />
     <Compile Include="Converters\InverseBooleanConverter.cs" />

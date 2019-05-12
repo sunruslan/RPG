@@ -7,6 +7,7 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using Prism.Commands;
 using Prism.Mvvm;
+using RPG.Action;
 using RPG.Enums;
 using RPG.GameBoard;
 using RPG.Units;
@@ -145,27 +146,27 @@ namespace RPG.ViewModels
 
         private void MoveLeft()
         {
-            Game.Actions.Enqueue();
+            Game.Actions?.Enqueue(new Move(Direction.LEFT));
         }
 
         private void MoveUp()
         {
-            Game.Actions.Enqueue();
+            Game.Actions?.Enqueue(new Move(Direction.UP));
         }
 
         private void MoveRight()
         {
-            Game.Actions.Enqueue();
+            Game.Actions?.Enqueue(new Move(Direction.RIGHT));
         }
 
         private void MoveDown()
         {
-            Game.Actions.Enqueue();
+            Game.Actions?.Enqueue(new Move(Direction.DOWN));
         }
 
         private void Attack()
         {
-            Game.Actions.Enqueue();
+            Game.Actions?.Enqueue(new Attack());
         }
 
         private bool _isStarted;

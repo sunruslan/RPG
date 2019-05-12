@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
+using RPG.Action;
 using RPG.Enums;
 using RPG.GameBoard;
 using RPG.Units;
@@ -21,6 +22,7 @@ namespace RPG.Game
             _unit = unit;
             _redArmy = new RedArmy();
             _blueArmy = new BlueArmy();
+            Actions = new Queue<IAction>();
         }
 
         public GameBoard.GameBoard GameBoard { get; set; }
@@ -68,7 +70,7 @@ namespace RPG.Game
             if (_redArmy.IsAlive() && _blueArmy.IsAlive())
             {
                 _redArmy.ActWithout(GameBoard, _player);
-                _player.Act(GameBoard);
+                if(Actions.Count > 0) _player.Act(GameBoard, Actions.Dequeue());
                 _blueArmy.Act(GameBoard);
             }
             if (!_blueArmy.IsAlive()) Winner = _redArmy;

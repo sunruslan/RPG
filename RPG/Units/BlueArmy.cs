@@ -101,7 +101,7 @@ namespace RPG.Units
             foreach (var u in _units)
             {
                 if (u == unit) continue;
-                unit.Act(gameBoard);
+                u.Act(gameBoard);
             }
         }
 

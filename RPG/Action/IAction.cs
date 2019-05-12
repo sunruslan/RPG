@@ -9,8 +9,8 @@ using RPG.Goods;
 
 namespace RPG.Action
 {
-    interface IAction
+    public interface IAction
     {
-        void Act(Unit fighter, IItem element, GameBoard.GameBoard gameBoard);
+        bool Act(Unit unit, GameBoard.GameBoard gameBoard);
     }
 }
