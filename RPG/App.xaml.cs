@@ -5,9 +5,6 @@ using System.Windows;
 
 namespace RPG
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App
     {
         protected override Window CreateShell()
@@ -17,7 +14,12 @@ namespace RPG
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterInstance(typeof(ViewLauncher), new ViewLauncher(Container));
+        }
 
+        protected override void OnInitialized()
+        {
+            Container.Resolve<ViewLauncher>().ShowMainWindow();
         }
     }
 }
